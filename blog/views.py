@@ -1,6 +1,10 @@
 from django.shortcuts import render
+from django.utils import timezone
+from .models import Post
 
 # Create your views here.
 
 def post_list(request):
-    return render(request,'blog/post_list.html',{}) 
+    # Postモデルからブログの記事を取り出すためのクエリセットを作成する
+    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    return render(request,'blog/post_list.html',{'posts': posts}) 
