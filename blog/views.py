@@ -8,3 +8,9 @@ def post_list(request):
     # Postモデルからブログの記事を取り出すためのクエリセットを作成する
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     return render(request,'blog/post_list.html',{'posts': posts}) 
+
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    Post.objects.get(pk=pk)
+
+from django.shortcuts import render, get_object_or_404
